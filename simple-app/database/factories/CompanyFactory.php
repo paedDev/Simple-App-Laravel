@@ -19,7 +19,7 @@ class CompanyFactory extends Factory
     {
         return [
 
-            'name' => fake()->streetName(),
+            'name' => fake()->company(),
             'description' => fake()->sentence(),
             'address' => fake()->address(),
             'user_id' => User::factory(),

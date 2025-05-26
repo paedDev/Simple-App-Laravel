@@ -26,10 +26,8 @@
                         <td class="px-4 py-3 ">{{ $user->email }}</td>
                         <td class="px-4 py-3 ">{{ $user->created_at->format('M d,Y') }}</td>
                         <td class="px-4 py-3 ">{{ $user->updated_at->format('Y') }}</td>
-                        <td class="px-4 py-3">
-                        </td>
-
-
+                        <td class="px-4 py-3"> {{ $user->companies->first()->name ?? 'No Company Name' }}  </td>
+                   
 
 
                         <td class="px-4 py-3 ">Show</td>
