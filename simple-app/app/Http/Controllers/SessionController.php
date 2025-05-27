@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class SessionController extends Controller
 {
     //     GET|HEAD        / ..................................  
     //   GET|HEAD        company company.index › CompanyCont…  
@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('companies')->simplePaginate(5);
-        return view('welcome', ['users' => $users]);
+        return view('user.index', ['users' => $users]);
     }
 
     /**
@@ -26,15 +26,24 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(User $user, Request $request)
     {
-        //
+        // dd(request()->all());
+        // $attributes = $request->validate([
+        //     'name'=> 'required',
+        //     'email' => ['required','email'],
+
+        // ]);
+        
+        // $user = User::create($attributes);
+
+        // return redirect()->route('/')->with('success','Successfully created a new user');
     }
 
     /**

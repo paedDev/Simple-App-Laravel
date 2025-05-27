@@ -1,9 +1,11 @@
 <x-layout>
     <x-forms.input />
-
-    <h1 class="text-center font-bold text-2xl">
-        Table For Users
-    </h1>
+    <div class="flex items-center justify-around  ">
+            <h1 class=" font-bold text-2xl text-center">
+                Table For Users
+            </h1>
+    </div>
+  
     <div class="mt-10 overflow-x-auto">
         <table class="w-[90%] mx-auto text-left border-collapse  ">
             <thead>

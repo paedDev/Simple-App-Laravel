@@ -20,8 +20,8 @@
                 <a href="/">Logo</a>
             </div>
             <div class="space-x-4 ">
-                <a href="#" class="hover:text-amber-300 transtion duration-500">Users</a>
-                <a href="#" class="hover:text-amber-300 transtion duration-500">Company </a>
+                <a href="/user" class="hover:text-amber-300 transtion duration-500">Users</a>
+                <a href="/company" class="hover:text-amber-300 transtion duration-500">Company </a>
             </div>
             <div class="hover:text-amber-300 transtion duration-500">
                 <a href="#">Post a Company</a>
