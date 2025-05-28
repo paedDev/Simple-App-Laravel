@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -18,7 +19,8 @@ class CompanyController extends Controller
     //   GET|HEAD        company/{company}/edit company.edit…  
     public function index()
     {
-        //
+        $companies = Company::latest()->paginate();
+        return view('company.index', compact('companies'));
     }
 
     /**
@@ -26,15 +28,25 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('company.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(Request $request, Company $company)
     {
-        //
+
+        $companyAttributes = request()->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'address' => 'required'
+
+        ]);
+        $companyAttributes['user_id'] = 1;
+        // create the company here
+        Company::create($companyAttributes);
+        return redirect("/company")->with('message', 'Succesfully created a company');
     }
 
     /**
@@ -42,7 +54,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return view("company.show", compact('company'));
     }
 
     /**
@@ -50,15 +62,22 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return view("company.edit", compact('company'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(Request $request, Company $company)
     {
-        //
+        $companyAttributes = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'address' => 'required'
+        ]);
+        $companyAttributes['user_id'] = 1;
+        $company->update($companyAttributes);
+        return redirect('/company');
     }
 
     /**
@@ -66,6 +85,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return redirect('/company');
     }
 }

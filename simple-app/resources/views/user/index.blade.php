@@ -1,11 +1,9 @@
 <x-layout>
+    <x-slot:heading>
+        Table For Users
+    </x-slot:heading>
     <x-forms.input />
-    <div class="flex items-center justify-around  ">
-            <h1 class=" font-bold text-2xl text-center">
-                Table For Users
-            </h1>
-    </div>
-  
+
     <div class="mt-10 overflow-x-auto">
         <table class="w-[90%] mx-auto text-left border-collapse  ">
             <thead>
@@ -28,8 +26,8 @@
                         <td class="px-4 py-3 ">{{ $user->email }}</td>
                         <td class="px-4 py-3 ">{{ $user->created_at->format('M d,Y') }}</td>
                         <td class="px-4 py-3 ">{{ $user->updated_at->format('Y') }}</td>
-                        <td class="px-4 py-3"> {{ $user->companies->first()->name ?? 'No Company Name' }}  </td>
-                   
+                        <td class="px-4 py-3"> {{ $user->companies->first()->name ?? 'No Company Name' }} </td>
+
 
 
                         <td class="px-4 py-3 ">Show</td>

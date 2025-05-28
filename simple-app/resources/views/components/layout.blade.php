@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Practice Laravel</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 </head>
 
 <body class="font-hanken bg-darkblue">
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav class="flex justify-between items-center h-20 px-10 border-b border-white/10  ">
             <div class="hover:text-amber-300 transtion duration-500">
                 <a href="/">Logo</a>
@@ -23,12 +23,44 @@
                 <a href="/user" class="hover:text-amber-300 transtion duration-500">Users</a>
                 <a href="/company" class="hover:text-amber-300 transtion duration-500">Company </a>
             </div>
-            <div class="hover:text-amber-300 transtion duration-500">
-                <a href="#">Post a Company</a>
-            </div>
+            @guest
+                <div class="">
+                    <div class="space-x-4">
+                        <button class="bg-blue-500/80 px-2 py-1 rounded-lg transtion duration-500">
+                            <a href="/signup" class="">Sign Up</a>
+                        </button>
+                        <button class="bg-blue-500/80 px-2 py-1 rounded-lg transtion duration-500">
+                            <a href="/login">Log In</a>
+                        </button>
+
+                    </div>
+                </div>
+            @endguest
+            @auth
+                <div>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button>Logout</button>
+                    </form>
+                </div>
+            @endauth
+
         </nav>
-        <main class="p-10">
+        <header class="px-10 mx-auto my-10 flex items-center justify-between">
+            <h1 class="text-3xl font-bold tracking-tight text-white">{{ $heading }}</h1>
+            @if (request()->is('company') || request()->is('company/create'))
+                <x-button href="/company/create"
+                    class="{{ request()->is('/company/create') ? 'bg-gray-900 text-white ' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }}">
+                    Create Company
+                </x-button>
+            @endif
+        </header>
+        <main class="p-10 max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+
             {{ $slot }}
+
+
         </main>
 
     </div>
