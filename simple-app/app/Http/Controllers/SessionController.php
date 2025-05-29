@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
 {
-    //     GET|HEAD        / ..................................  
-    //   GET|HEAD        company company.index › CompanyCont…  
-    //   POST            company company.store › CompanyCont…  
-    //   GET|HEAD        company/create company.create › Com…  
-    //   GET|HEAD        company/{company} company.show › Co…  
-    //   PUT|PATCH       company/{company} company.update › …  
-    //   DELETE          company/{company} company.destroy  …  
-    //   GET|HEAD        company/{company}/edit company.edit…  
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $users = User::with('companies')->simplePaginate(5);
-        return view('user.index', ['users' => $users]);
+        //
     }
 
     /**
@@ -26,55 +21,30 @@ class SessionController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        return view("auth.login");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(User $user, Request $request)
+    public function store(Request $request)
     {
-        // dd(request()->all());
-        // $attributes = $request->validate([
-        //     'name'=> 'required',
-        //     'email' => ['required','email'],
-
-        // ]);
-        
-        // $user = User::create($attributes);
-
-        // return redirect()->route('/')->with('success','Successfully created a new user');
+        $userValidate = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required'
+        ]);
+        if (!Auth::attempt($userValidate)) {
+            throw ValidationException::withMessages([
+                'email' => 'Sorry, those credentials do not match'
+            ]);
+        }
+        request()->session()->regenerate();
+        return redirect("/company");
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show()
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit()
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update()
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy()
     {
-        //
+        Auth::logout();
+        return redirect('/login');
     }
 }

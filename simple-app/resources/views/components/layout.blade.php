@@ -15,19 +15,22 @@
 
 <body class="font-hanken bg-darkblue">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <nav class="flex justify-between items-center h-20 px-10 border-b border-white/10  ">
+        <nav class="flex justify-between items-center h-20 px-10 border-b border-white/10">
             <div class="hover:text-amber-300 transtion duration-500">
                 <a href="/">Logo</a>
             </div>
-            <div class="space-x-4 ">
-                <a href="/user" class="hover:text-amber-300 transtion duration-500">Users</a>
-                <a href="/company" class="hover:text-amber-300 transtion duration-500">Company </a>
-            </div>
+            @auth
+                <div class="space-x-4 ">
+                    <a href="/user" class="hover:text-amber-300 transtion duration-500">Users</a>
+                    <a href="/company" class="hover:text-amber-300 transtion duration-500">Company </a>
+                </div>
+            @endauth
+
             @guest
                 <div class="">
                     <div class="space-x-4">
                         <button class="bg-blue-500/80 px-2 py-1 rounded-lg transtion duration-500">
-                            <a href="/signup" class="">Sign Up</a>
+                            <a href="/register" class="">Sign Up</a>
                         </button>
                         <button class="bg-blue-500/80 px-2 py-1 rounded-lg transtion duration-500">
                             <a href="/login">Log In</a>

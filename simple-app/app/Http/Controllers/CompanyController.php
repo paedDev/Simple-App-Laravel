@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -75,7 +76,7 @@ class CompanyController extends Controller
             'description' => 'required',
             'address' => 'required'
         ]);
-        $companyAttributes['user_id'] = 1;
+        $companyAttributes['user_id'] = Auth::id();
         $company->update($companyAttributes);
         return redirect('/company');
     }

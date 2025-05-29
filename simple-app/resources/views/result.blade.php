@@ -1,9 +1,7 @@
 <x-layout>
     <x-slot:heading>
-        Table For Users
+        Results
     </x-slot:heading>
-    <x-forms.input />
-
     <div class="mt-10 overflow-x-auto">
         <table class="w-[90%] mx-auto text-left border-collapse  ">
             <thead>
